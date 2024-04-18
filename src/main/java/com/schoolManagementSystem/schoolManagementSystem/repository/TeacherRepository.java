@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface TeacherRepository extends MongoRepository<TeacherInfo, String> {
-    TeacherInfo findTeacherByfirstName(String firstName);
+    TeacherInfo findTeacherById(String id);
     List<TeacherInfo> findAll();
     long count();
+    @Override
+    TeacherInfo save(TeacherInfo teacherInfo);
 }

@@ -5,11 +5,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document("subjectinfo")
+@Document(collation = "subjectinfo")
 public class SubjectDetails {
     @Id
     private String id;
     private String name;
     private String teacher;
-    private String students;
+    private String[] students;
 }

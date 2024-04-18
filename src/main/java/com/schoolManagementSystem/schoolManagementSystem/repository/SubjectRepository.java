@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface SubjectRepository extends MongoRepository<SubjectDetails, String> {
-    SubjectDetails findSubjectByName(String name);
+    SubjectDetails findSubjectById(String id);
     List<SubjectDetails> findAll();
     long count();
+
 }

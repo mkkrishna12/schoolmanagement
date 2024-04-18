@@ -13,4 +13,7 @@ public class TeacherInfo {
     private String firstName;
     private String lastName;
     private String[] subjects;
+    private String degree;
+    private String contactDetails;
+    private String joiningDate;
 }

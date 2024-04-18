@@ -10,8 +10,6 @@ import java.util.List;
 public interface StudentRepository extends MongoRepository<StudentInfo, BigInteger> {
      StudentInfo findByFirstName(String firstName);
      List<StudentInfo> findAll();
-
-
     long count();
 
 }
