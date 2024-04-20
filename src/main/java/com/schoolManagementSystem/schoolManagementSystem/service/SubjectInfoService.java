@@ -18,14 +18,12 @@ public class SubjectInfoService {
 
 
     public List<SubjectDetails> getAllSubjects() {
-
         return  subjectRepository.findAll();
     }
     public SubjectDetails getSubjectDetails(String id){
         return subjectRepository.findSubjectById(id);
     }
     public SubjectDetails addSubject(SubjectDetails subjectDetails) {
-        SubjectDetails subjectDetails1 = subjectRepository.save(subjectDetails);
-        return subjectDetails1;
+        return subjectRepository.save(subjectDetails);
     }
 }

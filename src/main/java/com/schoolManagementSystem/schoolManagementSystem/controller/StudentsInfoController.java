@@ -21,17 +21,26 @@ public class StudentsInfoController {
     private static final Logger log = LogManager.getLogger(StudentsInfoController.class);
     @Autowired(required = true)
     StudentInfoService studentInfoService;
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<StudentInfo>> getStudents(){
         log.info("Fetching All Student List ");
         List<StudentInfo> studentInfoList = studentInfoService.getAllStudent();
         return new ResponseEntity<>(studentInfoList, HttpStatus.OK);
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable String id){
+        try {
+            log.info("Searching for thr resource {}", id);
+            StudentInfo studentInfo = studentInfoService.getStudentById(id);
+            return new ResponseEntity<>(studentInfo, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PostMapping()
-    public ResponseEntity<String> addUser(@RequestBody StudentInfo studentInfo){
+    public ResponseEntity<StudentInfo> addUser(@RequestBody StudentInfo studentInfo){
         log.info("adding student {}", studentInfo);
-        studentInfoService.addUser(studentInfo);
-        return new ResponseEntity("User inserted", HttpStatus.OK);
+        StudentInfo studentInfo1 = studentInfoService.addUser(studentInfo);
+        return new ResponseEntity(studentInfo1, HttpStatus.OK);
     }
 }

@@ -1,8 +1,6 @@
 package com.schoolManagementSystem.schoolManagementSystem.service;
 
-import com.schoolManagementSystem.schoolManagementSystem.model.StudentInfo;
 import com.schoolManagementSystem.schoolManagementSystem.model.TeacherInfo;
-import com.schoolManagementSystem.schoolManagementSystem.repository.StudentRepository;
 import com.schoolManagementSystem.schoolManagementSystem.repository.TeacherRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +17,9 @@ public class TeacherInfoService {
 
     public List<TeacherInfo> getAllTeachers() {
 
-        return  teacherRepository.findAll();
+            List<TeacherInfo> teacherInfos =   teacherRepository.findAll();
+            return teacherInfos;
+
     }
     public TeacherInfo getTeacherInfoById(String id){
         return teacherRepository.findTeacherById(id);

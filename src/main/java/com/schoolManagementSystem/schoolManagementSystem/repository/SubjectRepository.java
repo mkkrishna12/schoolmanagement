@@ -11,5 +11,5 @@ public interface SubjectRepository extends MongoRepository<SubjectDetails, Strin
     SubjectDetails findSubjectById(String id);
     List<SubjectDetails> findAll();
     long count();
-
+    SubjectDetails save(SubjectDetails subjectDetails);
 }

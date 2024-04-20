@@ -8,8 +8,9 @@ import java.math.BigInteger;
 import java.util.List;
 @Repository
 public interface StudentRepository extends MongoRepository<StudentInfo, BigInteger> {
-     StudentInfo findByFirstName(String firstName);
+     StudentInfo findById(String id);
      List<StudentInfo> findAll();
+     StudentInfo save(StudentInfo studentInfo);
     long count();
 
 }

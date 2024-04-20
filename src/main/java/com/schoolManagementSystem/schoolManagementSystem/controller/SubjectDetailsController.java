@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("subject")
 public class SubjectDetailsController {
@@ -27,6 +29,11 @@ public class SubjectDetailsController {
     @GetMapping
     public ResponseEntity<SubjectDetails> getSubjectDetails(String id){
         SubjectDetails subjectDetails = subjectInfoService.getSubjectDetails(id);
+        return new ResponseEntity<>(subjectDetails, HttpStatus.OK);
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<SubjectDetails>> getAllSubjectDetails(){
+        List<SubjectDetails> subjectDetails = subjectInfoService.getAllSubjects();
         return new ResponseEntity<>(subjectDetails, HttpStatus.OK);
     }
 }
