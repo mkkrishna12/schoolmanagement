@@ -17,13 +17,25 @@ public class SubjectInfoService {
     private SubjectRepository subjectRepository;
 
 
-    public List<SubjectDetails> getAllSubjects() {
-        return  subjectRepository.findAll();
+    public List<SubjectDetails> getAllSubjects() throws Exception{
+        try {
+            return  subjectRepository.findAll();
+        }catch (Exception e){
+            throw e;
+        }
     }
-    public SubjectDetails getSubjectDetails(String id){
-        return subjectRepository.findSubjectById(id);
+    public SubjectDetails getSubjectDetails(String id) throws Exception{
+       try {
+           return subjectRepository.findSubjectById(id);
+       }catch (Exception e){
+           throw e;
+       }
     }
-    public SubjectDetails addSubject(SubjectDetails subjectDetails) {
-        return subjectRepository.save(subjectDetails);
+    public SubjectDetails addSubject(SubjectDetails subjectDetails) throws Exception{
+        try {
+            return subjectRepository.save(subjectDetails);
+        }catch (Exception e){
+            throw e;
+        }
     }
 }

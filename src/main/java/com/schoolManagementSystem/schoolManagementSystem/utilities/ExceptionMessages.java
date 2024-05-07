@@ -10,5 +10,5 @@ public class ExceptionMessages {
 
 
 
-    public static final String STUDENT_NOT_FOUND = "Student record not found for the Id:";
+    public static final String STUDENT_NOT_FOUND =  "Student record not found for the Id:";
 }

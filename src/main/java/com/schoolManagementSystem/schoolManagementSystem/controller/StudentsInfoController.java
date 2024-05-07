@@ -2,6 +2,7 @@ package com.schoolManagementSystem.schoolManagementSystem.controller;
 
 import com.schoolManagementSystem.schoolManagementSystem.model.*;
 import com.schoolManagementSystem.schoolManagementSystem.service.StudentInfoService;
+import com.schoolManagementSystem.schoolManagementSystem.utilities.RestResponse;
 import org.apache.juli.logging.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,26 +22,40 @@ public class StudentsInfoController {
     private static final Logger log = LogManager.getLogger(StudentsInfoController.class);
     @Autowired(required = true)
     StudentInfoService studentInfoService;
+
     @GetMapping("/all")
-    public ResponseEntity<List<StudentInfo>> getStudents(){
-        log.info("Fetching All Student List ");
-        List<StudentInfo> studentInfoList = studentInfoService.getAllStudent();
-        return new ResponseEntity<>(studentInfoList, HttpStatus.OK);
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable String id){
-        try {
-            log.info("Searching for thr resource {}", id);
-            StudentInfo studentInfo = studentInfoService.getStudentById(id);
-            return new ResponseEntity<>(studentInfo, HttpStatus.OK);
+    public RestResponse getStudents(){
+        try{
+            List<StudentInfo> studentInfoList = studentInfoService.getAllStudent();
+
+            log.info("Fetching All Student List {}", studentInfoList);
+            return RestResponse.<List<StudentInfo>>builder().data(studentInfoList).status(HttpStatus.OK.value()).message("Successfull").build();
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return RestResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Something went wrong").build();
+
+        }
+    }
+
+
+    @GetMapping("/{id}")
+    public RestResponse getStudentById(@PathVariable String id){
+        try {
+            log.info("Searching for the resource {}", id);
+            StudentInfo studentInfo = studentInfoService.getStudentById(id);
+            return RestResponse.builder().status(HttpStatus.OK.value()).data(studentInfo).message("Successfully retrived data").build();
+        }catch (Exception e){
+            return RestResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Something went wrong").build();
         }
     }
     @PostMapping()
-    public ResponseEntity<StudentInfo> addUser(@RequestBody StudentInfo studentInfo){
-        log.info("adding student {}", studentInfo);
-        StudentInfo studentInfo1 = studentInfoService.addUser(studentInfo);
-        return new ResponseEntity(studentInfo1, HttpStatus.OK);
+    public RestResponse addUser(@RequestBody StudentInfo studentInfo){
+        try{
+            log.info("adding student {}", studentInfo);
+            StudentInfo studentInfo1 = studentInfoService.addUser(studentInfo);
+            return RestResponse.builder().status(HttpStatus.OK.value()).data(studentInfo).message("Successfully added data").build();
+        }catch (Exception e){
+            return RestResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Something went wrong").build();
+
+        }
     }
 }

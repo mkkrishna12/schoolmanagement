@@ -24,8 +24,16 @@ public class TeacherInfoService {
     public TeacherInfo getTeacherInfoById(String id){
         return teacherRepository.findTeacherById(id);
     }
-    public TeacherInfo addUser(TeacherInfo teacherInfo) {
-        TeacherInfo teacherInfo1 = teacherRepository.save(teacherInfo);
-        return teacherInfo1;
+    public TeacherInfo addUser(TeacherInfo teacherInfo) throws Exception {
+       try {
+           TeacherInfo teacherInfo1 = teacherRepository.save(teacherInfo);
+           return teacherInfo1;
+       }catch (Exception e){
+           throw e;
+       }
+    }
+    public String[] addAttendence(String []studentIds){
+
+        return studentIds;
     }
 }

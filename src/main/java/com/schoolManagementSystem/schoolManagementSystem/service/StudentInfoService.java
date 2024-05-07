@@ -26,15 +26,28 @@ public class StudentInfoService {
             }
             return  studentInfo;
         } catch (Exception ex) {
-            log.error("Connection Error");
+            log.error("[ERROR] : {}", ex.getMessage());
             throw new ServerErrorExceptionHandler(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public List<StudentInfo> getAllStudent() {
-        return  studentRepository.findAll();
+        try {
+            List<StudentInfo> studentInfos =  studentRepository.findAll();
+            return studentInfos;
+        } catch (Exception e) {
+            throw new ServerErrorExceptionHandler(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     public StudentInfo addUser(StudentInfo studentInfo) {
-          return studentRepository.save(studentInfo);
+          try {
+              StudentInfo studentInfo1 = studentRepository.save(studentInfo);
+              if (studentInfo1 == null){
+                  throw new ServerErrorExceptionHandler("Recode has not been added", HttpStatus.INTERNAL_SERVER_ERROR);
+              }
+              return studentInfo1;
+          } catch (Exception e){
+              throw new ServerErrorExceptionHandler(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+          }
     }
 }

@@ -11,6 +11,6 @@ public interface StudentRepository extends MongoRepository<StudentInfo, BigInteg
      StudentInfo findById(String id);
      List<StudentInfo> findAll();
      StudentInfo save(StudentInfo studentInfo);
-    long count();
+     long count();
 
 }

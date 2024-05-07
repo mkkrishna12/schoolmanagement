@@ -3,6 +3,7 @@ package com.schoolManagementSystem.schoolManagementSystem.controller;
 
 import com.schoolManagementSystem.schoolManagementSystem.model.SubjectDetails;
 import com.schoolManagementSystem.schoolManagementSystem.service.SubjectInfoService;
+import com.schoolManagementSystem.schoolManagementSystem.utilities.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +22,32 @@ public class SubjectDetailsController {
 
 
     @PostMapping
-    public ResponseEntity<SubjectDetails> addSubjectDetails(@RequestBody SubjectDetails subjectDetails){
-        SubjectDetails subjectDetails1 = subjectInfoService.addSubject(subjectDetails);
-        log.info("Adding the data {}", subjectDetails);
-        return new ResponseEntity<>(subjectDetails1, HttpStatus.OK);
+    public RestResponse addSubjectDetails(@RequestBody SubjectDetails subjectDetails){
+        try {
+
+            SubjectDetails subjectDetails1 = subjectInfoService.addSubject(subjectDetails);
+            log.info("Adding the data {}", subjectDetails);
+            return RestResponse.builder().status(HttpStatus.OK.value()).message("Subject added successfully").data(subjectDetails).build();
+        }catch (Exception e){
+            return RestResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("something went wrong").build();
+        }
     }
     @GetMapping
-    public ResponseEntity<SubjectDetails> getSubjectDetails(String id){
-        SubjectDetails subjectDetails = subjectInfoService.getSubjectDetails(id);
-        return new ResponseEntity<>(subjectDetails, HttpStatus.OK);
+    public RestResponse getSubjectDetails(String id){
+        try {
+            SubjectDetails subjectDetails = subjectInfoService.getSubjectDetails(id);
+            return RestResponse.builder().status(HttpStatus.OK.value()).message("Successfully fetched details").data(subjectDetails).build();
+        }catch (Exception e){
+            return RestResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Something went wrong").build();
+        }
     }
     @GetMapping("/all")
-    public ResponseEntity<List<SubjectDetails>> getAllSubjectDetails(){
-        List<SubjectDetails> subjectDetails = subjectInfoService.getAllSubjects();
-        return new ResponseEntity<>(subjectDetails, HttpStatus.OK);
+    public RestResponse getAllSubjectDetails(){
+        try {
+            List<SubjectDetails> subjectDetails = subjectInfoService.getAllSubjects();
+            return RestResponse.builder().status(HttpStatus.OK.value()).message("Fetched all details").data(subjectDetails).build();
+        }catch (Exception e){
+            return RestResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value()).message("Something went wrong").build();
+        }
     }
 }
